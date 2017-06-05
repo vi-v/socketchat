@@ -11,11 +11,11 @@ export class ChatService {
 
   constructor() { }
 
-  sendMessage(message: string) {
+  public sendMessage(message: string) {
     this.socket.emit('add-message', message);
   }
 
-  getMessages() {
+  public getMessages() {
     let observable = new Observable((observer:any) => {
       this.socket = io(this.url);
       this.socket.on('message', data => {
