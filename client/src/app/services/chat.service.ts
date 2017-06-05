@@ -11,8 +11,8 @@ export class ChatService {
 
   constructor() { }
 
-  public sendMessage(message: string) {
-    this.socket.emit('add-message', message);
+  public sendMessage(message: string, username:string ) {
+    this.socket.emit('add-message', message, username);
   }
 
   public getMessages() {
@@ -28,4 +28,10 @@ export class ChatService {
     });
     return observable;
   }
+
+  public setUsername(username: string) {
+    sessionStorage.setItem('username', username);
+  }
+
+  public getUsername() { return sessionStorage.getItem('username'); }
 }
