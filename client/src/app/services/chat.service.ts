@@ -11,4 +11,21 @@ export class ChatService {
 
   constructor() { }
 
+  sendMessage(message: string) {
+    this.socket.emit('add-message', message);
+  }
+
+  getMessages() {
+    let observable = new Observable((observer:any) => {
+      this.socket = io(this.url);
+      this.socket.on('message', data => {
+        observer.next(data);
+      });
+
+      return () => {
+        this.socket.disconnect();
+      }
+    });
+    return observable;
+  }
 }
